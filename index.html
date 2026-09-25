@@ -76,7 +76,6 @@
             <div class="form-slide hidden space-y-6" data-slide="2">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 2: Prasarana <span class="text-sm font-normal text-blue-600">(Bobot 50%)</span></h2>
                 
-                <!-- Jalan Lingkungan -->
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">1. Jalan Lingkungan</h3>
                     <select name="prasarana_1" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Lebar Memadai -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -84,7 +83,6 @@
                     <select name="prasarana_3" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Bebas Lubang -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
 
-                <!-- Saluran / Drainase -->
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">2. Saluran / Drainase</h3>
                     <select name="prasarana_4" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Aliran Lancar -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -92,7 +90,6 @@
                     <select name="prasarana_6" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Tidak Ada Genangan -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
 
-                <!-- Air Bersih & Limbah -->
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">3 & 4. Air Bersih & Air Limbah</h3>
                     <select name="prasarana_7" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Sumber Air Bersih -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -101,7 +98,6 @@
                     <select name="prasarana_10" class="w-full px-4 py-2 border rounded-lg" required><option value="">- d. IPAL Komunal -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
 
-                <!-- Persampahan -->
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">5. Pengelolaan Sampah</h3>
                     <select name="prasarana_11" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Tempat Sampah Mandiri -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -160,7 +156,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 5: DOKUMENTASI (BARU) -->
+            <!-- SLIDE 5: DOKUMENTASI -->
             <div class="form-slide hidden space-y-6" data-slide="5">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 5: Dokumentasi Eksisting</h2>
                 <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
@@ -169,7 +165,6 @@
                     <label class="block text-sm font-medium mb-1">Upload Foto Penilaian (Maks. 5MB)</label>
                     <input type="file" id="fotoFile" accept="image/*" class="w-full px-4 py-2 bg-white border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                     
-                    <!-- Area Preview Gambar -->
                     <div id="imagePreview" class="mt-4 hidden">
                         <p class="text-xs text-slate-500 mb-1">Pratinjau Foto:</p>
                         <img id="imgThumbnail" src="" class="h-48 object-cover rounded-lg border border-slate-300">
@@ -201,24 +196,17 @@
                 <p id="finalScore" class="text-5xl font-extrabold text-blue-800 my-2">0.00</p>
                 <p id="finalPredicate" class="text-lg font-medium text-slate-700"></p>
             </div>
-            <div id="linkFotoContainer" class="text-center text-sm hidden">
-                <a id="linkFotoDrive" href="#" target="_blank" class="text-blue-600 underline hover:text-blue-800">Lihat Foto di Google Drive</a>
-            </div>
             <button onclick="location.reload()" class="w-full py-3 bg-slate-800 text-white font-medium rounded-xl hover:bg-slate-900 transition">Input Data Baru</button>
         </div>
     </main>
 
     <script>
-        // ==========================================
-        // GANTI URL DI BAWAH INI DENGAN URL WEB APP ANDA
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNFtB-eL28-T5Ayco27_9xcsEc5eUV46CqgdwjrFAzqPz2BMEAOLNqsKGOoP4W_sMx/exec'; 
-        // ==========================================
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvSyQRy2R5k6j2ovo2sPkn1GZbqqRoI9SkO_dNkp9dqdcs63Po-MrIgB_2gMm5AKay/exec'; 
 
         let currentSlide = 1;
         const totalSlides = 5;
         let fotoBase64Data = null;
 
-        // Preview Foto saat dipilih
         document.getElementById('fotoFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
@@ -273,11 +261,9 @@
             }
         }
 
-        // Handle Submit ke Google Apps Script
         document.getElementById('psuForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Ubah tampilan tombol jadi loading
             const btnSubmit = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const spinner = document.getElementById('loadingSpinner');
@@ -287,10 +273,9 @@
 
             const formData = new FormData(this);
             
-            // Hitung Skor
-            let pSum = 0, pCount = 12; // 12 item prasarana
-            let sSum = 0, sCount = 8;  // 8 item sarana
-            let uSum = 0, uCount = 9;  // 9 item utilitas
+            let pSum = 0, pCount = 12; 
+            let sSum = 0, sCount = 8;  
+            let uSum = 0, uCount = 9;  
 
             for(let i=1; i<=12; i++) pSum += parseInt(formData.get('prasarana_'+i));
             for(let i=1; i<=8; i++) sSum += parseInt(formData.get('sarana_'+i));
@@ -307,7 +292,6 @@
             else if (finalScore >= 1.8) predicate = "CUKUP (Perlu Perbaikan Minor)";
             else predicate = "BURUK (Perlu Perbaikan Mayor)";
 
-            // Susun Payload (Data JSON) untuk dikirim ke GAS
             const payload = {
                 namaPerumahan: formData.get('nama_perumahan'),
                 kelurahan: formData.get('kelurahan'),
@@ -320,14 +304,13 @@
                 skorUtilitas: avgU.toFixed(2),
                 skorAkhir: finalScore.toFixed(2),
                 predikat: predicate,
-                fotoBase64: fotoBase64Data // File Base64 string
+                fotoBase64: fotoBase64Data 
             };
 
             try {
-                // Kirim request ke Google Apps Script
-                const response = await fetch(SCRIPT_URL, {
+                await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Penting untuk bypass blokade CORS browser biasa
+                    mode: 'no-cors',
                     cache: 'no-cache',
                     headers: {
                         'Content-Type': 'application/json'
@@ -335,7 +318,6 @@
                     body: JSON.stringify(payload)
                 });
 
-                // Tampilkan Hasil di layar (Frontend)
                 const resultContent = document.getElementById('resultContent');
                 resultContent.innerHTML = `
                     <div><strong class="text-slate-500">Perumahan:</strong><br>${payload.namaPerumahan}</div>
@@ -349,13 +331,12 @@
                 document.getElementById('finalScore').innerText = payload.skorAkhir + " / 3.00";
                 document.getElementById('finalPredicate').innerText = payload.predikat;
 
-                // Sembunyikan form, tampilkan hasil
                 document.getElementById('psuForm').classList.add('hidden');
                 document.getElementById('resultCard').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
-                alert("Terjadi kesalahan saat menyimpan data. Coba cek koneksi internet atau URL App Script Anda.");
+                alert("Terjadi kesalahan saat menyimpan data. Coba cek koneksi internet Anda.");
                 console.error(error);
                 btnSubmit.disabled = false;
                 btnText.innerText = "Simpan ke Drive";
@@ -363,7 +344,6 @@
             }
         });
 
-        // Initialize first slide
         showSlide(currentSlide);
     </script>
 </body>
