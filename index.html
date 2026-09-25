@@ -19,15 +19,19 @@
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">FORM PENILAIAN KUALITAS PSU PERUMAHAN</h1>
             <p class="text-sm md:text-base text-slate-200 max-w-3xl mx-auto leading-relaxed">
-                Instrumen evaluasi objektif untuk mengukur kelayakan fisik, mutu teknis, serta keandalan fasilitas umum guna memastikan seluruh pembangunan memenuhi standar sebelum diserahterimakan kepada pemerintah daerah.
+                Instrumen evaluasi objektif untuk mengukur kelayakan fisik, mutu teknis, serta keandalan fasilitas umum.
             </p>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8">
-        <form id="psuForm" class="bg-white rounded-2xl shadow-xl overflow-hidden p-6 md:p-10">
+        <!-- FORM DENGAN TARGET IFRAME TERSEMBUNYI -->
+        <form id="psuForm" class="bg-white rounded-2xl shadow-xl overflow-hidden p-6 md:p-10" method="POST">
             
-            <!-- Progress Bar / Step Indicator -->
+            <!-- Hidden Iframe untuk menangkap respons tanpa pindah halaman -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessUI(); }"></iframe>
+
+            <!-- Progress Bar -->
             <div class="mb-8 overflow-x-auto">
                 <div class="flex justify-between min-w-max gap-4 mb-2 text-xs md:text-sm font-semibold text-slate-600">
                     <span id="step-indicator-1" class="text-blue-600">1. Identitas</span>
@@ -47,49 +51,46 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium mb-1">Nama Perumahan</label>
-                        <input type="text" name="nama_perumahan" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input type="text" name="nama_perumahan" required class="w-full px-4 py-2 border rounded-lg outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Kelurahan / Desa</label>
-                        <input type="text" name="kelurahan" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input type="text" name="kelurahan" required class="w-full px-4 py-2 border rounded-lg outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Kecamatan</label>
-                        <input type="text" name="kecamatan" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input type="text" name="kecamatan" required class="w-full px-4 py-2 border rounded-lg outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Nama Pengembang / Developer</label>
-                        <input type="text" name="pengembang" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input type="text" name="pengembang" required class="w-full px-4 py-2 border rounded-lg outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Tanggal Penilaian</label>
-                        <input type="date" name="tanggal_penilaian" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <input type="date" name="tanggal_penilaian" required class="w-full px-4 py-2 border rounded-lg outline-none">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Alamat Lengkap</label>
-                    <textarea name="alamat" rows="3" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    <textarea name="alamat" rows="3" required class="w-full px-4 py-2 border rounded-lg outline-none"></textarea>
                 </div>
             </div>
 
             <!-- SLIDE 2: PRASARANA -->
             <div class="form-slide hidden space-y-6" data-slide="2">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 2: Prasarana <span class="text-sm font-normal text-blue-600">(Bobot 50%)</span></h2>
-                
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">1. Jalan Lingkungan</h3>
                     <select name="prasarana_1" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Lebar Memadai -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="prasarana_2" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Perkerasan Beton/Aspal -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="prasarana_3" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Bebas Lubang -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">2. Saluran / Drainase</h3>
                     <select name="prasarana_4" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Aliran Lancar -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="prasarana_5" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Bebas Sampah -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="prasarana_6" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Tidak Ada Genangan -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">3 & 4. Air Bersih & Air Limbah</h3>
                     <select name="prasarana_7" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Sumber Air Bersih -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -97,7 +98,6 @@
                     <select name="prasarana_9" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Septic Tank Individu -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="prasarana_10" class="w-full px-4 py-2 border rounded-lg" required><option value="">- d. IPAL Komunal -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">5. Pengelolaan Sampah</h3>
                     <select name="prasarana_11" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Tempat Sampah Mandiri -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -108,20 +108,17 @@
             <!-- SLIDE 3: SARANA -->
             <div class="form-slide hidden space-y-6" data-slide="3">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 3: Sarana <span class="text-sm font-normal text-blue-600">(Bobot 30%)</span></h2>
-                
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">1. Pertamanan / RTH</h3>
                     <select name="sarana_1" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Luas & Ketersediaan RTH -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="sarana_2" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Fasilitas Taman Bermain -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="sarana_3" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Penghijauan & Ekologis -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">2. Sarana Peribadatan</h3>
                     <select name="sarana_4" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Kondisi Fisik Bangunan -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="sarana_5" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Fasilitas Penunjang -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">3. Sarana Sosial / Olahraga</h3>
                     <select name="sarana_6" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Balai Warga -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -133,21 +130,18 @@
             <!-- SLIDE 4: UTILITAS UMUM -->
             <div class="form-slide hidden space-y-6" data-slide="4">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 4: Utilitas Umum <span class="text-sm font-normal text-blue-600">(Bobot 20%)</span></h2>
-                
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">1. Jaringan Listrik</h3>
                     <select name="utilitas_1" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Kondisi Tiang Listrik -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="utilitas_2" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Kondisi Gardu/Trafo -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="utilitas_3" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Keamanan Pasokan -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">2. Penerangan Jalan (PJU)</h3>
                     <select name="utilitas_4" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Cakupan Cahaya -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="utilitas_5" class="w-full px-4 py-2 border rounded-lg" required><option value="">- b. Intensitas & Jenis Lampu -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                     <select name="utilitas_6" class="w-full px-4 py-2 border rounded-lg" required><option value="">- c. Kontinuitas (Operasional) -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
                 </div>
-
                 <div class="bg-slate-50 p-4 rounded-xl space-y-4 border">
                     <h3 class="font-semibold">3. Jaringan Telekomunikasi</h3>
                     <select name="utilitas_7" class="w-full px-4 py-2 border rounded-lg" required><option value="">- a. Ketersediaan Infrastruktur -</option><option value="3">Baik (3)</option><option value="2">Cukup (2)</option><option value="1">Buruk (1)</option></select>
@@ -160,10 +154,11 @@
             <div class="form-slide hidden space-y-6" data-slide="5">
                 <h2 class="text-xl font-bold border-b pb-2 text-slate-700">Slide 5: Dokumentasi Eksisting</h2>
                 <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
-                    <p class="text-sm text-blue-800 mb-4">Unggah foto kondisi eksisting lapangan sebagai bukti dokumentasi penilaian. Foto ini akan otomatis tersimpan ke Google Drive.</p>
-                    
-                    <label class="block text-sm font-medium mb-1">Upload Foto Penilaian (Maks. 5MB)</label>
-                    <input type="file" id="fotoFile" accept="image/*" class="w-full px-4 py-2 bg-white border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    <p class="text-sm text-blue-800 mb-4">Unggah foto kondisi eksisting lapangan. Foto akan otomatis tersimpan ke Google Drive.</p>
+                    <label class="block text-sm font-medium mb-1">Upload Foto Penilaian</label>
+                    <!-- Input file diberi nama agar tertangkap form, dan hidden input untuk base64 -->
+                    <input type="file" id="fotoFile" accept="image/*" class="w-full px-4 py-2 bg-white border rounded-lg outline-none">
+                    <input type="hidden" name="fotoBase64" id="fotoBase64">
                     
                     <div id="imagePreview" class="mt-4 hidden">
                         <p class="text-xs text-slate-500 mb-1">Pratinjau Foto:</p>
@@ -172,14 +167,18 @@
                 </div>
             </div>
 
+            <!-- Input tersembunyi untuk menampung hasil hitung skor -->
+            <input type="hidden" name="skorPrasarana" id="inputSkorP">
+            <input type="hidden" name="skorSarana" id="inputSkorS">
+            <input type="hidden" name="skorUtilitas" id="inputSkorU">
+            <input type="hidden" name="skorAkhir" id="inputSkorAkhir">
+            <input type="hidden" name="predikat" id="inputPredikat">
+
             <!-- Navigation Buttons -->
             <div class="flex justify-between mt-8 pt-4 border-t">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="px-6 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 hidden">Sebelumnya</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 ml-auto">Selanjutnya</button>
-                <button type="submit" id="submitBtn" class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 ml-auto hidden flex items-center">
-                    <span id="btnText">Simpan ke Drive</span>
-                    <svg id="loadingSpinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                </button>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="px-6 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hidden">Sebelumnya</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg ml-auto">Selanjutnya</button>
+                <button type="submit" id="submitBtn" class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg ml-auto hidden">Simpan ke Drive</button>
             </div>
         </form>
 
@@ -188,7 +187,6 @@
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
                 <strong class="font-bold">Berhasil!</strong> Data dan foto telah tersimpan ke Google Spreadsheet & Drive.
             </div>
-            
             <h2 class="text-2xl font-bold text-slate-800 border-b pb-3">Ringkasan Penilaian PSU</h2>
             <div id="resultContent" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700"></div>
             <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 text-center">
@@ -196,25 +194,25 @@
                 <p id="finalScore" class="text-5xl font-extrabold text-blue-800 my-2">0.00</p>
                 <p id="finalPredicate" class="text-lg font-medium text-slate-700"></p>
             </div>
-            <button onclick="location.reload()" class="w-full py-3 bg-slate-800 text-white font-medium rounded-xl hover:bg-slate-900 transition">Input Data Baru</button>
+            <button onclick="location.reload()" class="w-full py-3 bg-slate-800 text-white font-medium rounded-xl">Input Data Baru</button>
         </div>
     </main>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMQ2MSNEzcQk2L9RPfxlKGtqUbj1riUGXuSlveFnj5FAqdZa2nnySuR-mt7dY__FOS/exec'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw_0ab9KvOk_cZsOfOiAbzZXPVwlntxCFqMrLqIvVU8wJRtEKrUsXtFyw1R3A9RlwC/exec'; 
 
         let currentSlide = 1;
         const totalSlides = 5;
-        let fotoBase64Data = null;
+        let isSubmitted = false;
 
         document.getElementById('fotoFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    fotoBase64Data = event.target.result;
+                    document.getElementById('fotoBase64').value = event.target.result;
                     document.getElementById('imagePreview').classList.remove('hidden');
-                    document.getElementById('imgThumbnail').src = fotoBase64Data;
+                    document.getElementById('imgThumbnail').src = event.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -225,21 +223,10 @@
             slides.forEach((slide, index) => {
                 slide.classList.toggle('hidden', index + 1 !== n);
             });
-
             document.getElementById('prevBtn').classList.toggle('hidden', n === 1);
             document.getElementById('nextBtn').classList.toggle('hidden', n === totalSlides);
             document.getElementById('submitBtn').classList.toggle('hidden', n !== totalSlides);
-
             document.getElementById('progress-bar').style.width = (n / totalSlides) * 100 + '%';
-            
-            for (let i = 1; i <= totalSlides; i++) {
-                const indicator = document.getElementById(`step-indicator-${i}`);
-                if (i <= n) {
-                    indicator.classList.add('text-blue-600', 'font-bold');
-                } else {
-                    indicator.classList.remove('text-blue-600', 'font-bold');
-                }
-            }
         }
 
         function nextPrev(n) {
@@ -252,7 +239,6 @@
                     valid = false;
                 }
             });
-
             if (valid || n < 0) {
                 currentSlide += n;
                 if (currentSlide > totalSlides) currentSlide = totalSlides;
@@ -261,88 +247,35 @@
             }
         }
 
-        document.getElementById('psuForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const btnSubmit = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('loadingSpinner');
-            btnSubmit.disabled = true;
-            btnText.innerText = "Menyimpan Data...";
-            spinner.classList.remove('hidden');
+        document.getElementById('psuForm').addEventListener('submit', function(e) {
+            // Hitung skor sebelum dikirim ke form target iframe
+            let pSum = 0; for(let i=1; i<=12; i++) pSum += parseInt(document.querySelector(`[name="prasarana_${i}"]`).value);
+            let sSum = 0; for(let i=1; i<=8; i++) sSum += parseInt(document.querySelector(`[name="sarana_${i}"]`).value);
+            let uSum = 0; for(let i=1; i<=9; i++) uSum += parseInt(document.querySelector(`[name="utilitas_${i}"]`).value);
 
-            const formData = new FormData(this);
-            
-            let pSum = 0, pCount = 12; 
-            let sSum = 0, sCount = 8;  
-            let uSum = 0, uCount = 9;  
-
-            for(let i=1; i<=12; i++) pSum += parseInt(formData.get('prasarana_'+i));
-            for(let i=1; i<=8; i++) sSum += parseInt(formData.get('sarana_'+i));
-            for(let i=1; i<=9; i++) uSum += parseInt(formData.get('utilitas_'+i));
-
-            const avgP = pSum / pCount;
-            const avgS = sSum / sCount;
-            const avgU = uSum / uCount;
-
+            const avgP = pSum / 12;
+            const avgS = sSum / 8;
+            const avgU = uSum / 9;
             const finalScore = (avgP * 0.50) + (avgS * 0.30) + (avgU * 0.20);
             
-            let predicate = "";
-            if (finalScore >= 2.5) predicate = "SANGAT BAIK (Layak Serah Terima)";
-            else if (finalScore >= 1.8) predicate = "CUKUP (Perlu Perbaikan Minor)";
-            else predicate = "BURUK (Perlu Perbaikan Mayor)";
+            let predicate = finalScore >= 2.5 ? "SANGAT BAIK (Layak Serah Terima)" : (finalScore >= 1.8 ? "CUKUP (Perlu Perbaikan Minor)" : "BURUK (Perlu Perbaikan Mayor)");
 
-            const payload = {
-                namaPerumahan: formData.get('nama_perumahan'),
-                kelurahan: formData.get('kelurahan'),
-                kecamatan: formData.get('kecamatan'),
-                pengembang: formData.get('pengembang'),
-                tanggalPenilaian: formData.get('tanggal_penilaian'),
-                alamat: formData.get('alamat'),
-                skorPrasarana: avgP.toFixed(2),
-                skorSarana: avgS.toFixed(2),
-                skorUtilitas: avgU.toFixed(2),
-                skorAkhir: finalScore.toFixed(2),
-                predikat: predicate,
-                fotoBase64: fotoBase64Data 
-            };
+            document.getElementById('inputSkorP').value = avgP.toFixed(2);
+            document.getElementById('inputSkorS').value = avgS.toFixed(2);
+            document.getElementById('inputSkorU').value = avgU.toFixed(2);
+            document.getElementById('inputSkorAkhir').value = finalScore.toFixed(2);
+            document.getElementById('inputPredikat').value = predicate;
 
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const resultContent = document.getElementById('resultContent');
-                resultContent.innerHTML = `
-                    <div><strong class="text-slate-500">Perumahan:</strong><br>${payload.namaPerumahan}</div>
-                    <div><strong class="text-slate-500">Pengembang:</strong><br>${payload.pengembang}</div>
-                    <div class="md:col-span-2 border-t pt-4 mt-2 grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-slate-50 p-3 rounded-lg"><span class="block text-xs text-slate-500">Prasarana</span><strong>${payload.skorPrasarana}</strong></div>
-                        <div class="bg-slate-50 p-3 rounded-lg"><span class="block text-xs text-slate-500">Sarana</span><strong>${payload.skorSarana}</strong></div>
-                        <div class="bg-slate-50 p-3 rounded-lg"><span class="block text-xs text-slate-500">Utilitas</span><strong>${payload.skorUtilitas}</strong></div>
-                    </div>
-                `;
-                document.getElementById('finalScore').innerText = payload.skorAkhir + " / 3.00";
-                document.getElementById('finalPredicate').innerText = payload.predikat;
-
-                document.getElementById('psuForm').classList.add('hidden');
-                document.getElementById('resultCard').classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            } catch (error) {
-                alert("Terjadi kesalahan saat menyimpan data. Coba cek koneksi internet Anda.");
-                console.error(error);
-                btnSubmit.disabled = false;
-                btnText.innerText = "Simpan ke Drive";
-                spinner.classList.add('hidden');
-            }
+            this.action = SCRIPT_URL;
+            this.target = 'hidden_iframe';
+            isSubmitted = true;
         });
+
+        function showSuccessUI() {
+            document.getElementById('psuForm').classList.add('hidden');
+            document.getElementById('resultCard').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         showSlide(currentSlide);
     </script>
